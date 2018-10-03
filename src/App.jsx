@@ -2,25 +2,13 @@ import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 
-
 class App extends Component {
   // set initial state
   constructor(props) {
     super(props);
 
     this.state = {
-      messages: [
-      {
-        username: "Bob",
-        content: "Has anyone seen my marbles?",
-        id: 1
-      },
-      {
-        username: "Anonymous",
-        content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-        id: 2
-      }
-    ],
+      messages: [], // messages from server will be stored here.
       currentUser: 'Anonymous',
       value: ''
     }
@@ -47,24 +35,30 @@ class App extends Component {
     // event.preventDefault();
     // console.log(message);
     const newMessage = {username: this.state.currentUser, content: message};
-    const messages = this.state.messages.concat(newMessage)
-    this.setState({messages: messages})
+    const messages = this.state.messages.concat(newMessage);
+    console.log(this.socket);
+    this.socket.send(JSON.stringify(newMessage));
+    // this.setState({messages: messages})
   }
 
   componentDidMount() {
-    // console.log('componentDidMount <App />');
-    // setTimeout(() => {
-    //   console.log('Simulating incoming message');
-    //   // Add a new message to the list of messages in the data store
-    //   const newMessage = { id: 3, username: 'Michelle', content: 'Hello there!'};
-    //   const messages = this.state.messages.concat(newMessage)
-    //   // Update the state of the app component.
-    //   // Calling setState will trigger a call to render() in App and all child components.
-    //   this.setState({messages: messages})
-    // }, 3000);
+    console.log('componentDidMount <App />');
+
+    const newSocket = new WebSocket('ws://localhost:3001');
+    this.socket = newSocket;
+    console.log(this.socket);
+    // message when connected
+    console.log('Connected to server');
+
+    // could store socket connection in this.socket
+    newSocket.onopen = (event) => {
+      // newSocket.send('connection opened yo');
+    }
+
   }
 
   render() {
+    console.log('Rendering <App />');
     return (
       <div>
         <nav className="navbar">
