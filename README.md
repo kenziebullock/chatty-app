@@ -1,45 +1,48 @@
-React Boilerplate
+Socket Chat
 =====================
 
-A minimal and light dev environment for ReactJS.
+Socket Chat is a simple web chat app built with React and WebSockets. It was created as a project for Lighthouse Labs. Users can post messages which will be seen in real time by anyone else connected to the websocket server.
 
-### Usage
+## Final Product
 
-Clone the boilerplate and create your own git repo.
+!['screenshot of conversation']()
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+## Dependencies
 
-Install the dependencies and start the server.
+- React
+- ReactDom
+- WebSocket
 
-```
-npm install
-npm start
-open http://localhost:3000
-```
+## Server Dependencies
 
-### Static Files
+- Express
+- ws
+- uuid
 
-You can store static files like images, fonts, etc in the `build` folder.
+## Dev Dependencies
 
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
+- babel-core
+- babel-loader
+- babel-preset-es2015
+- babel-preset-react
+- babel-preset-stage-0
+- css-loader
+- eslint
+- eslint-plugin-react
+- node-sass
+- sass-loader
+- sockjs-client
+- style-loader
+- webpack
+- webpack-dev-server
 
-### Linting
+## Installing
 
-This boilerplate project includes React ESLint configuration.
+- Run `npm install` with the above dependencies.
+- Open terminal to chatty-server and run `npm server.js`
+- Run `npm start` in chatt-app folder.
+- Open browser to http://localhost:3000
+- Enjoy chatting!
 
-```
-npm run lint
-```
-
-### Dependencies
-
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+Version 1.0.0
+by Kenzie Bullock
