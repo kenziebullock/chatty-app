@@ -5,7 +5,7 @@ Socket Chat is a simple web chat app built with React and WebSockets. It was cre
 
 ## Final Product
 
-!['screenshot of conversation']()
+!['screenshot of conversation'](https://github.com/kenziebullock/chatty-app/blob/master/public/chat-example.png)
 
 ## Dependencies
 
