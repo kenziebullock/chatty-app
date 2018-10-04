@@ -66,8 +66,8 @@ class App extends Component {
   }
 
   usernameColor() {
-    const colors = ['blue', 'green', 'purple', 'orange'];
-    const index = Math.floor(Math.random() * Math.floor(4));
+    const colors = ['blue', 'green', 'purple', 'orange', 'hotpink', 'tomato', 'gold', 'darkgreen', 'aqua', 'gray'];
+    const index = Math.floor(Math.random() * Math.floor(9));
     this.setState({color: colors[index]});
   }
 
@@ -80,34 +80,30 @@ class App extends Component {
     
     // set random user color
     newSocket.onopen = (e) => {
+      // console.log('Connected to server');
       this.usernameColor(); 
     }
-    
-    // change color of username
-    // console.log(this.usernameColor());
-    // this.setState({color: this.usernameColor()})
 
-    // message when connected
-    // console.log('Connected to server');
-
-    
+    // message handler
     newSocket.onmessage = (event) => {  
       // console.log('Message received', event);
       
       // set user counter
       if (event.data == parseInt(event.data, 10)) {
         this.setState({users: event.data})
-      } else { // add messages to state
-        let aMessage = JSON.parse(event.data);
-        // console.log('in onmessage')
-        console.log(aMessage.content);
-        if (true) {};
-        console.log(aMessage);
-        const messages = this.state.messages.concat(aMessage);
-        // console.log(messages);
-        this.setState({messages: messages});
-        // console.log(this.state);
-      }
+      } 
+      
+      let data = JSON.parse(event.data);
+      switch(data.type) {
+        case 'incomingMessage':
+          const messages = this.state.messages.concat(data);
+          this.setState({messages: messages});
+          break;
+        case 'incomingNotification':
+          const notifications = this.state.messages.concat(data);
+          this.setState({messages: notifications});
+          break;
+      } 
     }
   }
 
@@ -116,12 +112,13 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
+          <a href="/" className="navbar-brand">Socket Chat</a>
           <span>{this.state.users} users online</span>
         </nav>
         <MessageList 
           messageList={this.state.messages}
-          color={this.state.color} />
+          notifications={this.state.notifications}
+          />
         <ChatBar 
           handleChange={this.handleChange} 
           value={this.state.value} 
