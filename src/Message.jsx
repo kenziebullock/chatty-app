@@ -14,3 +14,4 @@ class Message extends Component {
 }
 
 module.exports = Message;
+

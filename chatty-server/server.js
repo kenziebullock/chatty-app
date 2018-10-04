@@ -42,14 +42,18 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     let newMessage = JSON.parse(message);
-    console.log(newMessage);
+    // console.log(newMessage);
     // if (newMessage.type === 'postNotification')
-    if (newMessage.type === 'postMessage') {
-      newMessage.id = uuidv4();
-      newMessage.type = 'incomingMessage';
-      console.log(newMessage);
-      // ws.send(newMessage);
+    switch (newMessage.type) {
+      case 'postMessage':
+        newMessage.id = uuidv4();
+        newMessage.type = 'incomingMessage';
+        break;
     }
+    // if (newMessage.type === 'postMessage') {
+    //   // console.log(newMessage);
+    //   // ws.send(newMessage);
+    // }
     newMessage = JSON.stringify(newMessage);
     wss.clients.forEach((client) => {
       client.send(newMessage);

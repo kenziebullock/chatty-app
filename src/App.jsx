@@ -99,10 +99,12 @@ class App extends Component {
         this.setState({users: event.data})
       } else { // add messages to state
         let aMessage = JSON.parse(event.data);
-        console.log('in onmessage')
-        // console.log(aMessage);
+        // console.log('in onmessage')
+        console.log(aMessage.content);
+        if (true) {};
+        console.log(aMessage);
         const messages = this.state.messages.concat(aMessage);
-        console.log(messages);
+        // console.log(messages);
         this.setState({messages: messages});
         // console.log(this.state);
       }
